@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:UniversitySchedule" 
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <FontFamily x:Key="LatoThin">pack://appliction;,,,/Fonts/#Lato Thin
+    </FontFamily>
+    <FontFamily x:Key="LatoRegular">pack://appliction;,,,/Fonts/#Lato Regular</FontFamily>
+    <FontFamily x:Key="LatoBold">pack://appliction;,,,/Fonts/#Lato Bold</FontFamily>
+    <FontFamily x:Key="FontAwesome">pack://appliction;,,,/Fonts/#FontAwesome</FontFamily>
+    <FontFamily x:Key="FontAwesomeRegularBrand">pack://appliction;,,,/Fonts/#Font Awesome 5 Brands Regular</FontFamily>
+    <FontFamily x:Key="FontAwesomeFreeRegular">pack://appliction;,,,/Fonts/#Font Awesome 5 Free Regular</FontFamily>
+
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
+
+    <system:Double x:Key="FontSizeSmall">14</system:Double>
+    <system:Double x:Key="FontSizeAverage">18</system:Double>
+    <system:Double x:Key="FontSizeRegular">20</system:Double>
+    <system:Double x:Key="FontSizeLarge">30</system:Double>
+    <system:Double x:Key="FontSizeVeryLarge">40</system:Double>
+
+    <system:String x:Key="FontAwesomeMainPageIcon">&#xf015;</system:String>
+    <system:String x:Key="FontAwesomeMainUserIcon">&#xf007;</system:String>
+    <system:String x:Key="FontAwesomeMainCogIcon">&#xf013;</system:String>
+    <system:String x:Key="FontAwesomeLeftArrowIcon">&#xf060;</system:String>
+    <system:String x:Key="FontAwesomeRemoveIcon">&#xf05e;</system:String>
+    <system:String x:Key="FontAwesomeDateUnSelected">&#xf333;</system:String>
+</ResourceDictionary>

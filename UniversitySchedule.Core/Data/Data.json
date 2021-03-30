@@ -1,0 +1,239 @@
+{
+  "Shedules": [
+    
+    {
+      "NameOfClass": "111",
+      "ClassType": 1,
+      "TimeOfClass": "2020-10-11T15:00:00",
+      "Teacher": {
+        "Name": "3123",
+        "Faculty": "dsa",
+        "User": {
+          "Login": "azaz",
+          "Password": "azaz"
+        }
+      },
+      "Groups": [
+        {
+          "NameOfGroup": "Groupa",
+          "Students": [
+            {
+              "Name": "Не рыжкин",
+              "User": {
+                "Login": "азаз",
+                "Password": "азаз"
+              }
+            }
+          ]
+        },
+        {
+          "NameOfGroup": "123",
+          "Students": [
+            {
+              "Name": "Ryzhkin",
+              "User": {
+                "Login": "egor",
+                "Password": "123"
+              }
+            },
+            {
+              "Name": "123",
+              "User": {
+                "Login": "123",
+                "Password": "123"
+              }
+            },
+            {
+              "Name": "123",
+              "User": {
+                "Login": "432",
+                "Password": "123"
+              }
+            },
+            {
+              "Name": "123",
+              "User": {
+                "Login": "1234",
+                "Password": "1234"
+              }
+            }
+          ]
+        }
+      ],
+      "Online": true,
+      "OnlineUrl": "32"
+    },
+    {
+      "NameOfClass": "111111",
+      "ClassType": 1,
+      "TimeOfClass": "2020-10-11T15:20:00",
+      "Teacher": {
+        "Name": "3123",
+        "Faculty": "dsa",
+        "User": {
+          "Login": "azaz",
+          "Password": "azaz"
+        }
+      },
+      "Groups": [
+        {
+          "NameOfGroup": "Groupa",
+          "Students": [
+            {
+              "Name": "Не рыжкин",
+              "User": {
+                "Login": "азаз",
+                "Password": "азаз"
+              }
+            }
+          ]
+        },
+        {
+          "NameOfGroup": "123",
+          "Students": [
+            {
+              "Name": "Ryzhkin",
+              "User": {
+                "Login": "egor",
+                "Password": "123"
+              }
+            },
+            {
+              "Name": "123",
+              "User": {
+                "Login": "123",
+                "Password": "123"
+              }
+            },
+            {
+              "Name": "123",
+              "User": {
+                "Login": "432",
+                "Password": "123"
+              }
+            },
+            {
+              "Name": "123",
+              "User": {
+                "Login": "1234",
+                "Password": "1234"
+              }
+            }
+          ]
+        }
+      ],
+      "Online": true,
+      "OnlineUrl": "32"
+    }
+  ],
+  "Groups": [
+    {
+      "NameOfGroup": "123",
+      "Students": [
+        {
+          "Name": "Ryzhkin",
+          "User": {
+            "Login": "egor",
+            "Password": "123"
+          }
+        },
+        {
+          "Name": "123",
+          "User": {
+            "Login": "123",
+            "Password": "123"
+          }
+        },
+        {
+          "Name": "123",
+          "User": {
+            "Login": "432",
+            "Password": "123"
+          }
+        },
+        {
+          "Name": "123",
+          "User": {
+            "Login": "1234",
+            "Password": "1234"
+          }
+        }
+      ]
+    },
+    {
+      "NameOfGroup": "Groupa",
+      "Students": [
+        {
+          "Name": "Не рыжкин",
+          "User": {
+            "Login": "азаз",
+            "Password": "азаз"
+          }
+        }
+      ]
+    }
+  ],
+  "Teachers": [
+    {
+      "Name": "Ryzhkin EK",
+      "Faculty": "IT",
+      "User": {
+        "Login": "test",
+        "Password": "123"
+      }
+    },
+    {
+      "Name": "TESST",
+      "Faculty": "122",
+      "User": {
+        "Login": "kek",
+        "Password": "kek"
+      }
+    },
+    {
+      "Name": "3123",
+      "Faculty": "dsa",
+      "User": {
+        "Login": "azaz",
+        "Password": "azaz"
+      }
+    }
+  ],
+  "Students": [
+    {
+      "Name": "Ryzhkin",
+      "User": {
+        "Login": "egor",
+        "Password": "123"
+      }
+    },
+    {
+      "Name": "123",
+      "User": {
+        "Login": "123",
+        "Password": "123"
+      }
+    },
+    {
+      "Name": "123",
+      "User": {
+        "Login": "432",
+        "Password": "123"
+      }
+    },
+    {
+      "Name": "123",
+      "User": {
+        "Login": "1234",
+        "Password": "1234"
+      }
+    },
+    {
+      "Name": "Не рыжкин",
+      "User": {
+        "Login": "азаз",
+        "Password": "азаз"
+      }
+    }
+  ]
+}

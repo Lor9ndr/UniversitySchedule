@@ -1,0 +1,212 @@
+﻿<Window x:Class="UniversitySchedule.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniversitySchedule"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+        xmlns:core ="clr-namespace:UniversitySchedule.Core;assembly=UniversitySchedule.Core"
+        xmlns:sys ="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Расписание" MaxHeight="800" MaxWidth="1400" Width="800" Height="450"  MinHeight="450" MinWidth="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        <local:EnumDescriptionConverter x:Key="enumDescriptionConverter"/>
+    </Window.Resources>
+    <Grid Background="{StaticResource BackGroundLightBrush}">
+        <!-- LoginPage content-->
+        <Grid Visibility="Visible" x:Name="LoginGrid">
+            <TextBlock x:Name="tbPassword" Text="Пароль" FontSize="{StaticResource FontSizeLarge}"  Width="192" Margin="240,125,357,253" />
+            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center"  Width="320" Height="328"  >
+                <TextBox x:Name="TbLogin" Tag="Логин"/>
+                <PasswordBox Background="Transparent" GotFocus="PasswordBox_GotFocus" x:Name="PasswordB" LostFocus="PasswordBox_LostFocus" Tag="Пароль: "/>
+                <TextBlock Visibility="Hidden" Text="Вы ввели неверный пароль или логин" FontSize="{StaticResource FontSizeAverage}" Foreground="Red" x:Name="WrongPasswordtb"/>
+                <Button Content="Войти" Click="EnterButton_Click" ></Button>
+                <Button Style="{StaticResource StructureButton}" Content="Регистрация" Click="RegistrationButton_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!--RegistrationPage content-->
+
+        <Grid Visibility="Collapsed" x:Name="RegistrationPageGrid">
+            <StackPanel x:Name="ChoseTypeSP"  HorizontalAlignment="Center" VerticalAlignment="Center"  Orientation="Horizontal">
+                <Button Margin="10" Content="Я преподаватель" Click="TeacherButton_click" />
+                <Button  Margin="10" Content="Я студент"  Click="StudentButton_Click"  />
+            </StackPanel>
+            <!--Student Registration Grid-->
+            <Grid x:Name="StudentRegGrid" Visibility="Collapsed">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox Tag="ФИО" x:Name="RegStudentNameTb" />
+                    <TextBox Tag="Логин"  x:Name="RegStudentLoginTb"/>
+                    <TextBox Tag="Пароль"  x:Name="RegStudentPasswordTb"/>
+                    <TextBlock Text="Выберите группу" FontSize="{StaticResource FontSizeAverage}" />
+                    <ComboBox ItemsSource="{Binding Groups}" x:Name="GroupSelectionBox" FontSize="{StaticResource FontSizeAverage}"/>
+                    <Button Content="ОК" Click="StudentRegOk_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <!--Teacher Registration Grid-->
+
+            <Grid x:Name="TeacherRegGrid"  Visibility="Collapsed">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox Tag="ФИО" x:Name="TeacherRegNameTb"  />
+                    <TextBox Tag="Кафедра" x:Name="TeacherRegFacultyTb" />
+                    <TextBox Tag="Логин" x:Name="TeacherRegLoginTb"/>
+                    <TextBox Tag="Пароль" x:Name="TeacherRegPasswordTb"/>
+                    <Button Content="ОК" Margin="10" Click="TeacherRegOk_Click"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!--MainPage Content-->
+        <Grid Visibility="Collapsed" x:Name="MainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="220*"/>
+            </Grid.ColumnDefinitions>
+            <!--Teacher Buttons-->
+            <StackPanel Background="{StaticResource   DarkerMainBrush}" Visibility="{Binding IsUserStudent, Converter={StaticResource BoolToVisConverter},ConverterParameter='Invert'}" x:Name="TeacherLeftMenu" Width="210" HorizontalAlignment="Left" >
+                <Button Content="Добавить занятие" Style="{StaticResource FullTextButton}" Click="AddSheduleGrid_Click"/>
+                <Button Content="Удалить расписание" Style="{StaticResource FullTextButton}" Click="DeleteSheduleGrid_Click"/>
+                <Button Content="Поиск расписания" Style="{StaticResource FullTextButton}" Click="SeacrhSheduleGrid_Click"/>
+            </StackPanel>
+            <!--MainPage right side content-->
+            <Grid x:Name="RightSideGrid"  Grid.Column="1">
+                <!--SheduleGrid-->
+                <Grid x:Name="SearchSheduleGrid" Visibility="Visible">
+                    <StackPanel>
+                        <TextBlock Text="Нет расписания:)" 
+                                       Style="{StaticResource SideMenuText}"
+                                       FontSize="{StaticResource FontSizeLarge}" 
+                                       Visibility="{Binding IsSheduleIsEmpty,Converter={StaticResource BoolToVisConverter}}" />
+                        <TextBox Tag="Поиск по названию занятия или преподавателю" KeyUp="SearchForShedules_KeyUp"/>
+                        <CheckBox IsChecked="{Binding IsSearchingForCurrentShedules}" Content="Моё расписание" />
+                        <ListView ItemsSource="{Binding CurrentShedules}" x:Name="ListBoxOfMainShedules">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                                Grid.Row="0" 
+                                                Grid.Column="0" 
+                                                Text="{Binding NameOfClass}"/>
+                                        <TextBlock  
+                                            Text="{Binding ClassType, Converter={StaticResource enumDescriptionConverter}}"
+                                            Grid.Column="1" Grid.Row="0"/>
+                                        <TextBlock 
+                                                Grid.Row="1" 
+                                                Grid.Column="1"
+                                                Text="{Binding TimeOfClass, StringFormat='dddd, dd MMMM HH:mm' ,ConverterCulture={x:Static globalization:CultureInfo.CurrentCulture }}"/>
+                                        <TextBlock Text="{Binding OnlineUrl}"  Grid.Column="2" HorizontalAlignment="Left"
+                                                       Visibility="{Binding Online, Converter={StaticResource BoolToVisConverter}}" />
+                                        <TextBlock Text="{Binding Teacher}" Grid.Column="0" Grid.Row="1"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </Grid>
+                <!--AddSheduleGrid-->
+                <Grid x:Name="AddSheduleGrid" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.RowSpan="2">
+                        <TextBox Tag="Название предмета" x:Name="NameOfClassTb" FontSize="{StaticResource FontSizeAverage}" Margin="10"/>
+                        <ComboBox SelectedItem="{Binding LastAddedClassType}" ItemsSource="{Binding ClassTypes }" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="{StaticResource FontSizeAverage}" Text="{Binding Converter={StaticResource enumDescriptionConverter}}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <CheckBox x:Name="IsOnline" Content="Онлайн" 
+                                  FontSize="{StaticResource FontSizeAverage}" Margin="10" />
+                        <TextBox 
+                            Visibility="{Binding ElementName=IsOnline, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}" 
+                            Tag="URL онлайн занятия" x:Name="UrlOnlineClassTb" FontSize="{StaticResource FontSizeAverage}"/>
+                        <TextBlock FontSize="{StaticResource FontSizeAverage}" Text="Выберите преподавателя" HorizontalAlignment="Center" />
+                        <ComboBox ItemsSource="{Binding Teachers}" x:Name="TeachersChooseBox"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <DatePicker  Margin="5" x:Name="DateOfClass"/>
+                            <TextBox  Tag="Введите время в формате ЧЧ:мм " Margin="5" x:Name="TimeOfClass" FontSize="{StaticResource FontSizeAverage}"/>
+                        </StackPanel>
+                        <Button Content="Добавить" Click="AddSheduleButton_Click"/>
+                    </StackPanel>
+                    <GroupBox Header="Выберите группы" Grid.Column="1" Grid.Row="0" Style="{StaticResource AverageTextGroupBox}">
+                        <ListView ItemsSource="{Binding Groups}" x:Name="ListViewOfGroups" >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                        <TextBlock Text="{Binding }" FontSize="{StaticResource FontSizeAverage}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox Header="Добавить группу" Grid.Row="1" Grid.Column="1" Style="{StaticResource AverageTextGroupBox}">
+                        <StackPanel>
+                            <TextBox Tag="Введите название группы" x:Name="AddGroupNameTb" FontSize="{StaticResource FontSizeAverage}"/>
+                            <Button Content="Добавить" Click="AddNewGroup_Click" FontSize="{StaticResource FontSizeAverage}" />
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+                
+                <!--Delete Shedule Grid-->
+                <Grid x:Name="DeleteSheduleGrid" Visibility="Collapsed">
+                    <StackPanel>
+                        <TextBlock Text="Нет расписания:)" 
+                                       Style="{StaticResource SideMenuText}"
+                                       FontSize="{StaticResource FontSizeLarge}" 
+                                       Visibility="{Binding IsSheduleIsEmpty,Converter={StaticResource BoolToVisConverter}}" />
+                        <TextBox Tag="Поиск по названию занятия или преподавателю" KeyUp="SearchForShedules_KeyUp"/>
+                        <CheckBox IsChecked="{Binding IsSearchingForCurrentShedules}" Content="Моё расписание" />
+                        <ListView ItemsSource="{Binding CurrentShedules}" x:Name="DeleteShedulesListBox">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                                Grid.Row="0" 
+                                                Grid.Column="0" 
+                                                Text="{Binding NameOfClass}"/>
+                                        <TextBlock  
+                                            Text="{Binding ClassType, Converter={StaticResource enumDescriptionConverter}}"
+                                            Grid.Column="1" Grid.Row="0"/>
+                                        <TextBlock 
+                                                Grid.Row="1" 
+                                                Grid.Column="1"
+                                                Text="{Binding TimeOfClass, StringFormat='dddd, dd MMMM HH:mm' ,ConverterCulture={x:Static globalization:CultureInfo.CurrentCulture }}"/>
+                                        <TextBlock Text="{Binding OnlineUrl}"  Grid.Column="2" HorizontalAlignment="Left"
+                                                       Visibility="{Binding Online, Converter={StaticResource BoolToVisConverter}}" />
+                                        <TextBlock Text="{Binding Teacher}" Grid.Column="0" Grid.Row="1"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Button Content="Удалить выбранный(ые) занятие(я)" Click="DeleteShedules_Click" /> 
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid> 
+    </Grid>
+</Window>
